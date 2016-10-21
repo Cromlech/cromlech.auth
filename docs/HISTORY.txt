@@ -1,0 +1,86 @@
+Changelog
+=========
+
+0.5.1 (2012-11-14)
+------------------
+
+- Extended the `Slot` definition by adding a new top interface.
+  `ISlot` provides a more generic way to register sub-components on
+  a group-like component, the "Slot".
+
+  `IViewSlot` now inherits from `ISlot`.
+
+  Tests have been affected accordingly.
+
+
+0.5 (2012-05-01)
+----------------
+
+- Major update : merged `cromlech.io` to `cromlech.browser`.
+  Renamed most components. Be sure to update your code.
+  Some API changed : `IView` is now a marker interface and it replaces
+  the former `IHTTPRenderer`. `IRenderable` is replacing the
+  former `IRenderer`. IResponseFactory has been introduced to
+  add an abstraction between a view and its effective response.
+
+
+0.4.4 (2012-04-28)
+------------------
+
+- added ITypedHTTPRequest
+
+
+0.4.3 (2012-04-27)
+------------------
+
+- added client errors exceptions (4xx)
+
+
+0.4.2 (2012-04-17)
+------------------
+
+- added IForm interface
+
+
+0.4.1 (2012-02-01)
+------------------
+
+- redirect_response and redirect_exception_response
+  now sets content-length to 0 and content-type to text/plain
+
+
+0.4 (2012-01-17)
+----------------
+
+- `ILayout` is no longer extending `IHTTPRenderer`, but simply `IRenderer`.
+  This choice is influenced by the experience in the use of this component
+  and does not prevent a `IHTTPRenderer` implementation of an `ILayout`
+  component.
+
+- An implementation of a `ILayout` component has been added : `HTTPWrappper`.
+  This layout wraps a string into HTML base tags in order to make it more
+  likely to have reusable renderers in other layouts.
+
+
+0.3a1 (2012-01-05)
+------------------
+
+- Using now the new definitions from the ``cromlech.io`` split, introducing
+  a more specific request and response, respectively : `IHTTPRequest` and 
+  `IHTTPResponse`.
+
+- Changed the way a redirection is done : this is no longer a defined
+  class method. A new util function is provided to replace it. It creates
+  a new response instead of modifying an existing one.
+
+
+0.2 (2011-12-19)
+----------------
+
+- Changed requirements for BeautifulSoup to an existing version
+
+
+0.1 (2011-07-29)
+----------------
+
+- Initial stable release
