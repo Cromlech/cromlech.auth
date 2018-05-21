@@ -33,13 +33,13 @@ class BasicAuth(object):
         """
         return environ.get(self.session_key)
 
-    def save_session(self):
+    def save_session(self, environ):
         """Save out the session.
 
         Replace with a do-nothing if you use a package that does
         not require you to explicitly save out sessions.
         """
-        session = self.session_dict()
+        session = self.session_dict(environ)
         if session is not None:
             return session.save()
 
@@ -102,7 +102,7 @@ class BasicAuth(object):
         def basicauth_secure(environ, start_response):
             if self.authenticate(environ):
                 response = app(environ, start_response)
-                self.save_session()
+                self.save_session(environ)
             else:
                 response = self.not_authenticated(environ, start_response)
             return response
