@@ -4,6 +4,9 @@ Copyright (C) 2006-2008 Luke Arno - http://lukearno.com/
 Luke Arno can be found at http://lukearno.com/
 """
 
+import base64
+
+
 class BasicAuth(object):
     """HTTP Basic authentication middleware.
     """
@@ -20,8 +23,8 @@ class BasicAuth(object):
         self.realm = realm
 
     def valid_user(self, username, password):
-        for usr, pwd in self.users:
-            if username == usr and password == pwd:
+        if username in self.users:
+            if self.users[username] == password:
                 return True
         return False
 
@@ -69,7 +72,10 @@ class BasicAuth(object):
         if auth_string is None:
             return ('', '')
         else:
-            return auth_string[6:].strip().decode('base64').split(':')
+            auth = base64.b64decode(auth_string[6:].strip())
+            if isinstance(auth, bytes):
+                auth = auth.decode()
+            return auth.split(':')
 
     def authenticate(self, environ):
         """Is this request from an authenicated user? (True or False)"""
